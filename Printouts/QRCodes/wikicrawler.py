@@ -1,9 +1,25 @@
+import argparse
 import mwapi
 import json
 import requests
 import re
 from bs4 import BeautifulSoup
 session = mwapi.Session(host='https://wiki.comakingspace.de', api_path='/api.php')
+parser = argparse.ArgumentParser(description='Wikicrawler in order to generate tool printouts')
+parser.add_argument('--MachineBox', dest='MachineBox', action='store_const',
+                    const=True, default=False,
+                    help='Backcrawl the Machine Info Boxes')
+parser.add_argument('--MaterialBox', dest='MaterialBox', action='store_const',
+                    const=True, default=False,
+                    help='Backcrawl the Material Info Boxes')
+parser.add_argument('--ProjectBox', dest='ProjectBox', action='store_const',
+                    const=True, default=False,
+                    help='Backcrawl the Project Info Boxes')
+parser.add_argument('--ToolBox', dest='ToolBox', action='store_const',
+                    const=True, default=False,
+                    help='Backcrawl the Tool Info Boxes')
+args = parser.parse_args()
+
 def crawlCategory(categoryname, infoboxname):
     global session
     print("-----------------------------------------------------")
@@ -23,7 +39,12 @@ def crawlBacklinks(backlinkpage, infoboxname):
     query_result = session.get(action='query', list='backlinks',bltitle=backlinkpage,bllimit='max')
     machine_pages = query_result['query']['backlinks']
     machine_pages = sorted(machine_pages,key= lambda page: page['title'],reverse=False)
+    total_pages = len(machine_pages)
+    count = 0
+    print('%i pages in total' % len(machine_pages))
     for page in machine_pages:
+        count += 1
+        print ('Page %i of %i' % (count, total_pages))
         # get the content of the page
         crawlpage(page['title'],infoboxname,infoboxname)
 
@@ -51,13 +72,19 @@ def parseToolbox(infoboxtext, title):
     parsedwikitext = ('<html><body>' + parsedwikitext + '</body></html>')
 
     html = BeautifulSoup(parsedwikitext,'html.parser')
+    table_tag = html.find('table')
+    table_tag['style'] = table_tag['style'] + "; max-width:200px"
     image_link = html.find('a','image')
     image_tag = image_link.find('img')
     new_figure = html.new_tag('figure')
     Image_tag_copy = image_tag.replaceWith(new_figure)
     new_figure.append(Image_tag_copy)
     figurecaption = html.new_tag('figcaption')
-    figurecaption.string = 'Wiki: %s' % title
+    figurecaptionsmall = html.new_tag('small')
+    figurecaptionsmall.string = 'For further information please scan the QR-Code or check our'
+    figurecaptionsmall.append(html.new_tag('br'))
+    figurecaption.append(figurecaptionsmall)
+    figurecaption.append('Wiki: %s' % title)
     new_figure.append(figurecaption)
     image_tag['src'] = 'http://chart.apis.google.com/chart?chs=200x200&cht=qr&chl=' + url
     del image_tag['srcset']
@@ -88,10 +115,14 @@ def extractinfoboxes(wikitext,infoboxname):
     return infoboxes
 
 if __name__ == "__main__":
-    crawlBacklinks('Template:ToolInfoBox','ToolInfoBox')
-    crawlBacklinks('Template:MachineInfoBox','MachineInfoBox')
-    crawlBacklinks('Template:MaterialInfoBox','MaterialInfoBox')
-    crawlBacklinks('Template:ProjectInfoBox','ProjectInfoBox')
+    if args.ToolBox:
+        crawlBacklinks('Template:ToolInfoBox','ToolInfoBox')
+    if args.MachineBox:
+        crawlBacklinks('Template:MachineInfoBox','MachineInfoBox')
+    if args.MaterialBox:
+        crawlBacklinks('Template:MaterialInfoBox','MaterialInfoBox')
+    if args.ProjectBox:
+        crawlBacklinks('Template:ProjectInfoBox','ProjectInfoBox')
     #crawlpage('Eccentric_Sanders','ToolInfoBox','Test')
     #crawlCategory("Audio", "ProjectInfoBox")
     #crawlCategory("Hardware", "ToolInfoBox")
