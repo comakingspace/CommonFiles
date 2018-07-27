@@ -52,7 +52,9 @@ def crawlpage(title, infoboxname, categoryname=''):
         basefilename = title.strip().replace(' ', '_')
         basefilename = re.sub(r'(?u)[^-\w.]', '', basefilename)
         with open('%s_%s_%i.html' % (categoryname, basefilename, number), 'w', encoding='utf8') as f:
-            f.write(html.prettify())
+            #prettify messes up the formatted html in chrome, so we just output the plain html string.
+            #f.write(html.prettify())
+            f.write(str(html))
             number += 1
 def parseToolbox(infoboxtext, title):
     #Getting the parsed html of the infobox
@@ -74,6 +76,12 @@ def parseToolbox(infoboxtext, title):
     head.append(style)
     html.html.body.insert_before(head)
     
+    try:
+        Tutor = html.find('a',text='(?)', title='Tutors')
+        Tutor.decompose()
+    except:
+        pass
+    #Tutor.string = 'Tutor'
     #Modifying the Image:
     #finfind the image tag
     image_link = html.find('a', 'image')
