@@ -55,14 +55,30 @@ def crawlpage(title, infoboxname, categoryname=''):
             f.write(html.prettify())
             number += 1
 def parseToolbox(infoboxtext, title):
+    #Getting the parsed html of the infobox
     global session
     url = "https://wiki.comakingspace.de/" + title
+    url = url.replace(' ', '_')
     parsingresponse = session.get(action='parse', text=infoboxtext, contentmodel='wikitext', disablelimitreport=1)
     parsedwikitext = parsingresponse['parse']['text']['*']
     parsedwikitext = ('<html><body>' + parsedwikitext + '</body></html>')
+
+    #Generating a BeatifulSoup object, which allows us to modify the DOM
     html = BeautifulSoup(parsedwikitext, 'html.parser')
+
+    #Adding the mediawiki CSS file into the head
+    head = html.new_tag('head')
+    style = html.new_tag('link')
+    style['href'] = 'https://wiki.comakingspace.de/load.php?debug=false&lang=en&modules=ext.slideshow.css%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&only=styles&skin=vector'
+    style['rel'] = 'stylesheet'
+    head.append(style)
+    html.html.body.insert_before(head)
+    
+    #Modifying the Image:
+    #finfind the image tag
     image_link = html.find('a', 'image')
     image_tag = image_link.find('img')
+    #replacing the imagetag with a figure tag - so that we can add a caption
     new_figure = html.new_tag('figure')
     Image_tag_copy = image_tag.replaceWith(new_figure)
     new_figure.append(Image_tag_copy)
@@ -73,12 +89,15 @@ def parseToolbox(infoboxtext, title):
     figurecaption.append(html.new_tag('br'))
     figurecaption.append('Wiki: %s' % title)
     new_figure.append(figurecaption)
+    # Replacing the image with the QR-code
     image_tag['src'] = 'http://chart.apis.google.com/chart?chs=200x200&cht=qr&chl=' + url
     del image_tag['srcset']
     image_tag['height'] = 200
     image_tag['width'] = 200
     table = html.find('table')
     table['style'] = table['style'].replace('float:right;', '')
+
+    #Replacing all link tags with their respective content
     for a in html.findAll('a'):
         a.replaceWithChildren()
     return html
