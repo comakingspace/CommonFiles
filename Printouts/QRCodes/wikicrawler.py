@@ -18,7 +18,7 @@ categoryGroup.add_argument('--Project', dest='ProjectBox', action='store_true',
                     help='Crawl for Project Info Boxes')
 categoryGroup.add_argument('--All', dest='All', action='store_true',
                     help='Crawl for All Info Boxes')
-parser.add_argument('--Page', dest='Page', default='', help='Parse a specific page (use only with --InfoBoxName)')
+parser.add_argument('--Page', dest='Page', default='', help='Parse a specific page (use only with --InfoBoxName) example: \'python .\\wikicrawler.py --Page \"Chop Saw\" --InfoBoxName \"ToolInfoBox\"\'')
 parser.add_argument('--InfoBoxName', dest='InfoBoxName', default='', help='Indicate the InfoBoxName when parsing a specific page (use only with --Page)')
 args = parser.parse_args()
 
