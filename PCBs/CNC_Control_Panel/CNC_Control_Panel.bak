@@ -920,8 +920,6 @@ F 3 "" H 4500 6050 50  0001 C CNN
 	1    4500 5850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5700 1600 5100 1600
 $Comp
 L Switch:SW_Push ON_OFF1
 U 1 1 5BB26A65
@@ -1111,7 +1109,7 @@ Wire Wire Line
 	8200 3200 9050 3200
 Wire Wire Line
 	8150 5750 9000 5750
-Text Label 5100 1600 0    50   ~ 0
+Text Label 4350 1600 0    50   ~ 0
 GPIO12(PWM0)
 Text Label 1050 4500 0    50   ~ 0
 GPIO16
@@ -1198,13 +1196,13 @@ Wire Notes Line
 Wire Notes Line
 	6700 2450 6700 800 
 Wire Notes Line
-	5050 800  6250 800 
+	4300 800  6600 800 
 Wire Notes Line
-	6250 800  6250 2450
+	6600 800  6600 2450
 Wire Notes Line
-	6250 2450 5050 2450
+	6600 2450 4300 2450
 Wire Notes Line
-	5050 2450 5050 800 
+	4300 2450 4300 800 
 Wire Notes Line
 	5050 2650 10050 2650
 Wire Notes Line
@@ -1223,7 +1221,7 @@ Wire Notes Line
 	950  6150 950  3700
 Text Notes 950  3700 0    50   ~ 0
 Function Buttons
-Text Notes 5050 800  0    50   ~ 0
+Text Notes 4300 800  0    50   ~ 0
 LED Indicator (WS2812B)
 Text Notes 6700 800  0    50   ~ 0
 Rotatry Switch
@@ -1690,42 +1688,116 @@ $EndComp
 $Comp
 L power:GND #PWR0101
 U 1 1 5BB26B90
-P 5300 1750
-F 0 "#PWR0101" H 5300 1500 50  0001 C CNN
-F 1 "GND" H 5305 1577 50  0000 C CNN
-F 2 "" H 5300 1750 50  0001 C CNN
-F 3 "" H 5300 1750 50  0001 C CNN
-	1    5300 1750
+P 5800 1900
+F 0 "#PWR0101" H 5800 1650 50  0001 C CNN
+F 1 "GND" H 5805 1727 50  0000 C CNN
+F 2 "" H 5800 1900 50  0001 C CNN
+F 3 "" H 5800 1900 50  0001 C CNN
+	1    5800 1900
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Male J?
+L Connector:Conn_01x03_Male J2
 U 1 1 5BBAAFC2
-P 5900 1600
-F 0 "J?" H 6050 1350 50  0000 R CNN
-F 1 "Conn_01x03_Male" H 6300 1800 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 5900 1600 50  0001 C CNN
-F 3 "~" H 5900 1600 50  0001 C CNN
-	1    5900 1600
+P 6100 1600
+F 0 "J2" H 6250 1350 50  0000 R CNN
+F 1 "Conn_01x03_Male" H 6350 1800 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 6100 1600 50  0001 C CNN
+F 3 "~" H 6100 1600 50  0001 C CNN
+	1    6100 1600
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0126
 U 1 1 5BBAFD4B
-P 5300 1450
-F 0 "#PWR?" H 5300 1300 50  0001 C CNN
-F 1 "+5V" H 5300 1590 50  0000 C CNN
-F 2 "" H 5300 1450 50  0000 C CNN
-F 3 "" H 5300 1450 50  0000 C CNN
-	1    5300 1450
+P 5800 1150
+F 0 "#PWR0126" H 5800 1000 50  0001 C CNN
+F 1 "+5V" H 5800 1290 50  0000 C CNN
+F 2 "" H 5800 1150 50  0000 C CNN
+F 3 "" H 5800 1150 50  0000 C CNN
+	1    5800 1150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5300 1750 5300 1700
+	5800 1900 5800 1700
 Wire Wire Line
-	5300 1700 5700 1700
+	5800 1700 5900 1700
 Wire Wire Line
-	5700 1500 5300 1500
+	5900 1500 5800 1500
 Wire Wire Line
-	5300 1500 5300 1450
+	5800 1500 5800 1200
+$Comp
+L Transistor_FET:BSS138 Q?
+U 1 1 5BBD252E
+P 5300 1500
+F 0 "Q?" V 5550 1500 50  0000 C CNN
+F 1 "BSS138" V 5641 1500 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5500 1425 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 5300 1500 50  0001 L CNN
+	1    5300 1500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5BC07184
+P 5550 1400
+F 0 "R?" H 5620 1446 50  0000 L CNN
+F 1 "10k" H 5620 1355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5480 1400 50  0001 C CNN
+F 3 "~" H 5550 1400 50  0001 C CNN
+	1    5550 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 1250 5550 1200
+Wire Wire Line
+	5550 1200 5800 1200
+Connection ~ 5800 1200
+Wire Wire Line
+	5800 1200 5800 1150
+Wire Wire Line
+	5550 1550 5550 1600
+Wire Wire Line
+	5550 1600 5500 1600
+Wire Wire Line
+	5550 1600 5900 1600
+Connection ~ 5550 1600
+Wire Wire Line
+	5100 1600 5000 1600
+$Comp
+L Device:R R?
+U 1 1 5BC3AC59
+P 5000 1400
+F 0 "R?" H 5070 1446 50  0000 L CNN
+F 1 "10k" H 5070 1355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 4930 1400 50  0001 C CNN
+F 3 "~" H 5000 1400 50  0001 C CNN
+	1    5000 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BC3ADA5
+P 5000 1150
+F 0 "#PWR?" H 5000 1000 50  0001 C CNN
+F 1 "+3.3V" H 5000 1290 50  0000 C CNN
+F 2 "" H 5000 1150 50  0000 C CNN
+F 3 "" H 5000 1150 50  0000 C CNN
+	1    5000 1150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 1250 5000 1200
+Wire Wire Line
+	5000 1200 5300 1200
+Wire Wire Line
+	5300 1200 5300 1300
+Connection ~ 5000 1200
+Wire Wire Line
+	5000 1200 5000 1150
+Wire Wire Line
+	5000 1550 5000 1600
+Connection ~ 5000 1600
+Wire Wire Line
+	5000 1600 4350 1600
 $EndSCHEMATC
