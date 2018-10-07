@@ -1,6 +1,6 @@
-update=2018 October 02, Tuesday 15:09:59
+update=2018 October 07, Sunday 23:25:42
 version=1
-last_client=eeschema
+last_client=kicad
 [cvpcb]
 version=1
 NetITyp=0
@@ -76,7 +76,7 @@ LibDir=
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
-PlotDirectoryName=Plot/CNC_Control_Panel_Schematic.pdf
+PlotDirectoryName=Plot/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=Pcbnew
