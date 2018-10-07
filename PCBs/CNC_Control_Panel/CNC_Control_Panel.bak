@@ -98,11 +98,7 @@ Connection ~ 2300 2300
 Wire Wire Line
 	2400 1200 1250 1200
 Wire Wire Line
-	1250 1300 2400 1300
-Wire Wire Line
 	1250 1400 2400 1400
-Wire Wire Line
-	2400 1600 1250 1600
 Wire Wire Line
 	1250 1700 2400 1700
 Wire Wire Line
@@ -1800,4 +1796,21 @@ Wire Wire Line
 Connection ~ 5000 1600
 Wire Wire Line
 	5000 1600 4350 1600
+$Comp
+L Diode:1N4148W D?
+U 1 1 5BC73CE0
+P 1100 1450
+F 0 "D?" V 1150 1650 50  0000 R CNN
+F 1 "1N4148W" V 1050 1900 50  0000 R CNN
+F 2 "Diode_SMD:D_SOD-123" H 1100 1275 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 1100 1450 50  0001 C CNN
+	1    1100 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1100 1300 2400 1300
+Wire Wire Line
+	1100 1600 2400 1600
+Text Notes 550  2150 0    50   ~ 0
+GPIO3 boots\nPi when pulled\ndown via On/Off\nbutton.\nDiode to avoid \nI2C triggering \nthe shutdown.
 $EndSCHEMATC
