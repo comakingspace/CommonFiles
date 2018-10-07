@@ -1723,10 +1723,10 @@ Wire Wire Line
 Wire Wire Line
 	5800 1500 5800 1200
 $Comp
-L Transistor_FET:BSS138 Q?
+L Transistor_FET:BSS138 Q1
 U 1 1 5BBD252E
 P 5300 1500
-F 0 "Q?" V 5550 1500 50  0000 C CNN
+F 0 "Q1" V 5550 1500 50  0000 C CNN
 F 1 "BSS138" V 5641 1500 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 5500 1425 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 5300 1500 50  0001 L CNN
@@ -1734,10 +1734,10 @@ F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 5300 1500 50  000
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R22
 U 1 1 5BC07184
 P 5550 1400
-F 0 "R?" H 5620 1446 50  0000 L CNN
+F 0 "R22" H 5620 1446 50  0000 L CNN
 F 1 "10k" H 5620 1355 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5480 1400 50  0001 C CNN
 F 3 "~" H 5550 1400 50  0001 C CNN
@@ -1761,10 +1761,10 @@ Connection ~ 5550 1600
 Wire Wire Line
 	5100 1600 5000 1600
 $Comp
-L Device:R R?
+L Device:R R1
 U 1 1 5BC3AC59
 P 5000 1400
-F 0 "R?" H 5070 1446 50  0000 L CNN
+F 0 "R1" H 5070 1446 50  0000 L CNN
 F 1 "10k" H 5070 1355 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 4930 1400 50  0001 C CNN
 F 3 "~" H 5000 1400 50  0001 C CNN
@@ -1772,10 +1772,10 @@ F 3 "~" H 5000 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR?
+L power:+3.3V #PWR0127
 U 1 1 5BC3ADA5
 P 5000 1150
-F 0 "#PWR?" H 5000 1000 50  0001 C CNN
+F 0 "#PWR0127" H 5000 1000 50  0001 C CNN
 F 1 "+3.3V" H 5000 1290 50  0000 C CNN
 F 2 "" H 5000 1150 50  0000 C CNN
 F 3 "" H 5000 1150 50  0000 C CNN
@@ -1797,10 +1797,10 @@ Connection ~ 5000 1600
 Wire Wire Line
 	5000 1600 4350 1600
 $Comp
-L Diode:1N4148W D?
+L Diode:1N4148W D1
 U 1 1 5BC73CE0
 P 1100 1450
-F 0 "D?" V 1150 1650 50  0000 R CNN
+F 0 "D1" V 1150 1650 50  0000 R CNN
 F 1 "1N4148W" V 1050 1900 50  0000 R CNN
 F 2 "Diode_SMD:D_SOD-123" H 1100 1275 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 1100 1450 50  0001 C CNN
@@ -1814,21 +1814,21 @@ Wire Wire Line
 Text Notes 550  2150 0    50   ~ 0
 GPIO3 boots\nPi when pulled\ndown via On/Off\nbutton.\nDiode to avoid \nI2C triggering \nthe shutdown.
 $Comp
-L Connector:Conn_01x07_Male J?
+L Connector:Conn_01x07_Male J3
 U 1 1 5BC817D8
 P 5150 6900
-F 0 "J?" H 5256 7378 50  0000 C CNN
+F 0 "J3" H 5256 7378 50  0000 C CNN
 F 1 "Conn_01x07_Male" H 5256 7287 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical" H 5150 6900 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Horizontal" H 5150 6900 50  0001 C CNN
 F 3 "~" H 5150 6900 50  0001 C CNN
 	1    5150 6900
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0128
 U 1 1 5BC81D19
 P 5400 7250
-F 0 "#PWR?" H 5400 7000 50  0001 C CNN
+F 0 "#PWR0128" H 5400 7000 50  0001 C CNN
 F 1 "GND" H 5405 7077 50  0000 C CNN
 F 2 "" H 5400 7250 50  0001 C CNN
 F 3 "" H 5400 7250 50  0001 C CNN
@@ -1836,10 +1836,10 @@ F 3 "" H 5400 7250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR?
+L power:+3.3V #PWR0129
 U 1 1 5BC81DE1
 P 6050 6550
-F 0 "#PWR?" H 6050 6400 50  0001 C CNN
+F 0 "#PWR0129" H 6050 6400 50  0001 C CNN
 F 1 "+3.3V" H 6065 6723 50  0000 C CNN
 F 2 "" H 6050 6550 50  0001 C CNN
 F 3 "" H 6050 6550 50  0001 C CNN
@@ -1847,10 +1847,10 @@ F 3 "" H 6050 6550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0130
 U 1 1 5BC81EB0
 P 5850 6550
-F 0 "#PWR?" H 5850 6400 50  0001 C CNN
+F 0 "#PWR0130" H 5850 6400 50  0001 C CNN
 F 1 "+5V" H 5865 6723 50  0000 C CNN
 F 2 "" H 5850 6550 50  0001 C CNN
 F 3 "" H 5850 6550 50  0001 C CNN

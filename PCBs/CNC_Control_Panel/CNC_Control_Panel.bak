@@ -1813,4 +1813,76 @@ Wire Wire Line
 	1100 1600 2400 1600
 Text Notes 550  2150 0    50   ~ 0
 GPIO3 boots\nPi when pulled\ndown via On/Off\nbutton.\nDiode to avoid \nI2C triggering \nthe shutdown.
+$Comp
+L Connector:Conn_01x07_Male J?
+U 1 1 5BC817D8
+P 5150 6900
+F 0 "J?" H 5256 7378 50  0000 C CNN
+F 1 "Conn_01x07_Male" H 5256 7287 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical" H 5150 6900 50  0001 C CNN
+F 3 "~" H 5150 6900 50  0001 C CNN
+	1    5150 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BC81D19
+P 5400 7250
+F 0 "#PWR?" H 5400 7000 50  0001 C CNN
+F 1 "GND" H 5405 7077 50  0000 C CNN
+F 2 "" H 5400 7250 50  0001 C CNN
+F 3 "" H 5400 7250 50  0001 C CNN
+	1    5400 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5BC81DE1
+P 6050 6550
+F 0 "#PWR?" H 6050 6400 50  0001 C CNN
+F 1 "+3.3V" H 6065 6723 50  0000 C CNN
+F 2 "" H 6050 6550 50  0001 C CNN
+F 3 "" H 6050 6550 50  0001 C CNN
+	1    6050 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5BC81EB0
+P 5850 6550
+F 0 "#PWR?" H 5850 6400 50  0001 C CNN
+F 1 "+5V" H 5865 6723 50  0000 C CNN
+F 2 "" H 5850 6550 50  0001 C CNN
+F 3 "" H 5850 6550 50  0001 C CNN
+	1    5850 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 6600 5850 6600
+Wire Wire Line
+	5850 6600 5850 6550
+Wire Wire Line
+	5350 6700 6050 6700
+Wire Wire Line
+	6050 6700 6050 6550
+Wire Wire Line
+	5350 7200 5400 7200
+Wire Wire Line
+	5400 7200 5400 7250
+Wire Wire Line
+	5350 6800 6050 6800
+Wire Wire Line
+	5350 6900 6050 6900
+Wire Wire Line
+	5350 7000 6050 7000
+Wire Wire Line
+	5350 7100 6050 7100
+Text Label 6050 6800 2    50   ~ 0
+GPIO14(TXD0)
+Text Label 6050 6900 2    50   ~ 0
+GPIO15(RXD0)
+Text Label 6050 7000 2    50   ~ 0
+GPIO2(SDA1)
+Text Label 6050 7100 2    50   ~ 0
+GPIO3(SCL1)
 $EndSCHEMATC
