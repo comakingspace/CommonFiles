@@ -6,21 +6,6 @@ import re
 import argparse
 from bs4 import BeautifulSoup
 session = mwapi.Session(host='https://wiki.comakingspace.de', api_path='/api.php')
-<<<<<<< HEAD
-parser = argparse.ArgumentParser(description='Wikicrawler in order to generate tool printouts')
-parser.add_argument('--MachineBox', dest='MachineBox', action='store_const',
-                    const=True, default=False,
-                    help='Backcrawl the Machine Info Boxes')
-parser.add_argument('--MaterialBox', dest='MaterialBox', action='store_const',
-                    const=True, default=False,
-                    help='Backcrawl the Material Info Boxes')
-parser.add_argument('--ProjectBox', dest='ProjectBox', action='store_const',
-                    const=True, default=False,
-                    help='Backcrawl the Project Info Boxes')
-parser.add_argument('--ToolBox', dest='ToolBox', action='store_const',
-                    const=True, default=False,
-                    help='Backcrawl the Tool Info Boxes')
-=======
 
 parser = argparse.ArgumentParser(description='Generate Tool printouts from the CoMakingSpace Wiki (https://wiki.comakingspace.de)')
 categoryGroup = parser.add_mutually_exclusive_group()
@@ -36,7 +21,6 @@ categoryGroup.add_argument('--All', dest='All', action='store_true',
                     help='Crawl for All Info Boxes')
 parser.add_argument('--Page', dest='Page', default='', help='Parse a specific page (use only with --InfoBoxName) example: \'python .\\wikicrawler.py --Page \"Chop Saw\" --InfoBoxName \"ToolInfoBox\"\'')
 parser.add_argument('--InfoBoxName', dest='InfoBoxName', default='', help='Indicate the InfoBoxName when parsing a specific page (use only with --Page)')
->>>>>>> b8b6cb0f2690bd0fb9d26f20afac900d7f0db6c2
 args = parser.parse_args()
 
 def crawlCategory(categoryname, infoboxname):
@@ -54,14 +38,10 @@ def crawlBacklinks(backlinkpage, infoboxname):
     print("Crawling Backlinks to: %s" % backlinkpage)
     query_result = session.get(action='query', list='backlinks', bltitle=backlinkpage, bllimit='max')
     machine_pages = query_result['query']['backlinks']
-<<<<<<< HEAD
     machine_pages = sorted(machine_pages,key= lambda page: page['title'],reverse=False)
     total_pages = len(machine_pages)
     count = 0
     print('%i pages in total' % len(machine_pages))
-=======
-    machine_pages = sorted(machine_pages, key=lambda page: page['title'], reverse=False)
->>>>>>> b8b6cb0f2690bd0fb9d26f20afac900d7f0db6c2
     for page in machine_pages:
         count += 1
         print ('Page %i of %i' % (count, total_pages))
@@ -91,12 +71,6 @@ def parseToolbox(infoboxtext, title):
     parsedwikitext = parsingresponse['parse']['text']['*']
     parsedwikitext = ('<html><body>' + parsedwikitext + '</body></html>')
 
-<<<<<<< HEAD
-    html = BeautifulSoup(parsedwikitext,'html.parser')
-    table_tag = html.find('table')
-    table_tag['style'] = table_tag['style'] + "; max-width:200px"
-    image_link = html.find('a','image')
-=======
     #Generating a BeatifulSoup object, which allows us to modify the DOM
     html = BeautifulSoup(parsedwikitext, 'html.parser')
 
@@ -117,24 +91,16 @@ def parseToolbox(infoboxtext, title):
     #Modifying the Image:
     #finfind the image tag
     image_link = html.find('a', 'image')
->>>>>>> b8b6cb0f2690bd0fb9d26f20afac900d7f0db6c2
     image_tag = image_link.find('img')
     #replacing the imagetag with a figure tag - so that we can add a caption
     new_figure = html.new_tag('figure')
     Image_tag_copy = image_tag.replaceWith(new_figure)
     new_figure.append(Image_tag_copy)
     figurecaption = html.new_tag('figcaption')
-<<<<<<< HEAD
-    figurecaptionsmall = html.new_tag('small')
-    figurecaptionsmall.string = 'For further information please scan the QR-Code or check our'
-    figurecaptionsmall.append(html.new_tag('br'))
-    figurecaption.append(figurecaptionsmall)
-=======
     figuredescription = html.new_tag('small')
     figuredescription.string = "For further information please scan the QR-Code or check our"
     figurecaption.append(figuredescription)
     figurecaption.append(html.new_tag('br'))
->>>>>>> b8b6cb0f2690bd0fb9d26f20afac900d7f0db6c2
     figurecaption.append('Wiki: %s' % title)
     new_figure.append(figurecaption)
     # Replacing the image with the QR-code
@@ -165,21 +131,6 @@ def extractinfoboxes(wikitext, infoboxname):
     return infoboxes
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    if args.ToolBox:
-        crawlBacklinks('Template:ToolInfoBox','ToolInfoBox')
-    if args.MachineBox:
-        crawlBacklinks('Template:MachineInfoBox','MachineInfoBox')
-    if args.MaterialBox:
-        crawlBacklinks('Template:MaterialInfoBox','MaterialInfoBox')
-    if args.ProjectBox:
-        crawlBacklinks('Template:ProjectInfoBox','ProjectInfoBox')
-    #crawlpage('Eccentric_Sanders','ToolInfoBox','Test')
-    #crawlCategory("Audio", "ProjectInfoBox")
-    #crawlCategory("Hardware", "ToolInfoBox")
-    #crawlCategory("Power Tools", "ToolInfoBox")
-    #crawlCategory("Machines", "MachineInfoBox")
-=======
     if (args.MachineBox or args.All):
         crawlBacklinks('Template:MachineInfoBox', 'MachineInfoBox')
     if (args.MaterialBox or args.All):
@@ -198,4 +149,3 @@ if __name__ == "__main__":
     # crawlCategory("Hardware", "ToolInfoBox")
     # crawlCategory("Power Tools", "ToolInfoBox")
     # crawlCategory("Machines", "MachineInfoBox")
->>>>>>> b8b6cb0f2690bd0fb9d26f20afac900d7f0db6c2
