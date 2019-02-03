@@ -25,3 +25,7 @@ optional arguments:
                         Indicate the InfoBoxName when parsing a specific page
                         (use only with --Page)
 ```
+
+What to print:
+
+We have a ["MissingQR" category in the wiki](https://wiki.comakingspace.de/Category:MissingQR) that should help you see which QR codes are "flagged" for printing. Please remove the pages from this category once you print the code! 
