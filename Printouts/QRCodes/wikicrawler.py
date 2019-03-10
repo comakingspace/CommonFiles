@@ -76,6 +76,9 @@ def parseToolbox(infoboxtext, title):
 
     #Adding the mediawiki CSS file into the head
     head = html.new_tag('head')
+    meta = html.new_tag('meta')
+    meta['charset'] = 'utf-8'
+    head.append(meta)
     style = html.new_tag('link')
     style['href'] = 'https://wiki.comakingspace.de/load.php?debug=false&lang=en&modules=ext.slideshow.css%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&only=styles&skin=vector'
     style['rel'] = 'stylesheet'
