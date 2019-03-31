@@ -4,7 +4,11 @@ import json
 import requests
 import re
 import argparse
+import io
+import qrcode
 from bs4 import BeautifulSoup
+from PIL import Image, ImageDraw, ImageFont
+
 session = mwapi.Session(host='https://wiki.comakingspace.de', api_path='/api.php')
 
 parser = argparse.ArgumentParser(description='Generate Tool printouts from the CoMakingSpace Wiki (https://wiki.comakingspace.de)')
@@ -21,6 +25,7 @@ categoryGroup.add_argument('--All', dest='All', action='store_true',
                     help='Crawl for All Info Boxes')
 parser.add_argument('--Page', dest='Page', default='', help='Parse a specific page (use only with --InfoBoxName) example: \'python .\\wikicrawler.py --Page \"Chop Saw\" --InfoBoxName \"ToolInfoBox\"\'')
 parser.add_argument('--InfoBoxName', dest='InfoBoxName', default='', help='Indicate the InfoBoxName when parsing a specific page (use only with --Page)')
+parser.add_argument('--Projects', dest='Projects', action='store_true', help='crawl the project pages')
 args = parser.parse_args()
 
 def crawlCategory(categoryname, infoboxname):
@@ -132,6 +137,78 @@ def extractinfoboxes(wikitext, infoboxname):
             infoboxes.append(infoboxtext)
         infoboxstart = wikitext.find("{{" + infoboxname, infoboxend)
     return infoboxes
+def crawlProjectNameSpace():
+    global session
+    print("-----------------------------------------------------")
+    print("Crawling Project Namespace")    
+    query_result = session.get(action='query', list='allpages', apnamespace='4', aplimit='500')
+    project_pages = query_result['query']['allpages']
+    for page in project_pages:
+        # get the content of the page
+        crawlPageForPic(page['title'])
+def crawlPageForPic(title, infoboxname='ProjectInfoBox'):
+    global session
+    print(title)
+    rawurl = "https://wiki.comakingspace.de/index.php?title=" + title + '&action=raw'
+    responseraw = requests.get(rawurl)
+    infoboxes = extractinfoboxes(responseraw.text, infoboxname)
+    for infobox in infoboxes:
+        border_percent = 4
+        #get the image and the corresponding link
+        file_start = infobox.find("image=")+6
+        file_end = infobox.find("\n", file_start)
+        file_name = "File:" + infobox[file_start:file_end]
+        title_new = title[title.find(':')+1:]
+        if infobox[file_start:file_end].find('.') == -1:
+            break
+        #get url
+        query_result = session.get(action='query', prop='imageinfo', iiprop='url', titles=file_name)
+        image_specifics = query_result['query']['pages'][list(query_result['query']['pages'])[0]]
+        if 'missing' in image_specifics:
+            break
+        file_link = image_specifics['imageinfo'][0]['url']
+        file = requests.get(file_link).content
+        #with open(title_new + '.jpg', 'wb') as f:
+        #    f.write(file)
+        image = Image.open(io.BytesIO(file))
+        #image.save(title_new + '.jpg')
+        #horizental size: image.size[0]
+        size = image.size[1]//10
+        text_font = ImageFont.truetype('Roboto-Regular.ttf', size=size)
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=5,
+            border=2,
+        )
+        
+        qr.add_data("https://wiki.comakingspace.de/" + title.replace(" ","_"))
+        qr.make(fit=True)
+        qr_image = qr.make_image(fill_color="black", back_color="white")
+        qr_image = qr_image.get_image()
+        qr_image = qr_image.resize((size*2,size*2))
+        #qr_image.save(title_new + "_qr.jpg")
+        
+        text_image = Image.new('RGB', text_font.getsize(title_new) ,'white')
+        draw = ImageDraw.Draw(text_image)
+        #text_image.paste(qr_image, (text_font.getsize(title_new)[0],0))
+        #text_font.size = 100
+        draw.text((0,0),title_new, fill='black', font=text_font)
+        if text_image.size[0] > image.size[0]:
+            target_size_x = image.size[0]-qr_image.size[0]
+            factor = target_size_x / text_image.size[0]
+            text_image = text_image.resize( (int(text_image.size[0]*factor), int (text_image.size[1]*factor) ) )
+        
+        #text_image.save(title_new+'_text.jpg')
+        image_total = Image.new('RGB', (max(image.size[0],text_image.size[0]+qr_image.size[0]), image.size[1]+text_image.size[1]), 'white' )
+        image_total.paste(image, (int(image_total.size[0] /2 - image.size[0]/2) ,0))
+        image_total.paste(text_image, (int(text_image.size[0] /2 - text_image.size[0]/2) ,image.size[1]))
+        image_total.paste(qr_image, (image_total.size[0] - qr_image.size[0] ,image_total.size[1] - qr_image.size[1]))
+        image_total_2 = Image.new('RGB', ( int(image_total.size[0] * (border_percent/100+1)), int(image_total.size[1] * (border_percent/100+1) )), 'white' )
+        image_total_2.paste(image_total, ( int((border_percent/100)*image_total.size[0]/2) ,int((border_percent/100)*image_total.size[1]/2)))
+        image_total_2.save(title_new + "_total.jpg")
+        #text_image.show()
+        print(image.format, "%dx%d" % image.size, image.mode)
 
 if __name__ == "__main__":
     if (args.MachineBox or args.All):
@@ -147,6 +224,8 @@ if __name__ == "__main__":
             crawlpage(args.Page, args.InfoBoxName)
         else:
             print('Please indicate the Info Box Name when crawling a specific page.')
+    if (args.Projects):
+        crawlProjectNameSpace()
     # crawlpage('Eccentric_Sanders','ToolInfoBox','Test')
     # crawlCategory("Audio", "ProjectInfoBox")
     # crawlCategory("Hardware", "ToolInfoBox")
