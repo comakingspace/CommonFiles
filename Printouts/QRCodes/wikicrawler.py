@@ -184,27 +184,27 @@ def crawlPageForPic(title, infoboxname='ProjectInfoBox'):
         
         qr.add_data("https://wiki.comakingspace.de/" + title.replace(" ","_"))
         qr.make(fit=True)
-        qr_image = qr.make_image(fill_color="black", back_color="white")
+        qr_image = qr.make_image(fill_color="white", back_color="#383e42")
         qr_image = qr_image.get_image()
         qr_image = qr_image.resize((size*2,size*2))
         #qr_image.save(title_new + "_qr.jpg")
         
-        text_image = Image.new('RGB', text_font.getsize(title_new) ,'white')
+        text_image = Image.new('RGB', text_font.getsize(title_new) , '#383e42')
         draw = ImageDraw.Draw(text_image)
         #text_image.paste(qr_image, (text_font.getsize(title_new)[0],0))
         #text_font.size = 100
-        draw.text((0,0),title_new, fill='black', font=text_font)
+        draw.text((0,0),title_new, fill='white', font=text_font)
         if text_image.size[0] > image.size[0]:
             target_size_x = image.size[0]-qr_image.size[0]
             factor = target_size_x / text_image.size[0]
             text_image = text_image.resize( (int(text_image.size[0]*factor), int (text_image.size[1]*factor) ) )
         
         #text_image.save(title_new+'_text.jpg')
-        image_total = Image.new('RGB', (max(image.size[0],text_image.size[0]+qr_image.size[0]), image.size[1]+text_image.size[1]), 'white' )
+        image_total = Image.new('RGB', (max(image.size[0],text_image.size[0]+qr_image.size[0]), image.size[1]+text_image.size[1]), (56,62,66) )
         image_total.paste(image, (int(image_total.size[0] /2 - image.size[0]/2) ,0))
         image_total.paste(text_image, (int(text_image.size[0] /2 - text_image.size[0]/2) ,image.size[1]))
         image_total.paste(qr_image, (image_total.size[0] - qr_image.size[0] ,image_total.size[1] - qr_image.size[1]))
-        image_total_2 = Image.new('RGB', ( int(image_total.size[0] * (border_percent/100+1)), int(image_total.size[1] * (border_percent/100+1) )), 'white' )
+        image_total_2 = Image.new('RGB', ( int(image_total.size[0] * (border_percent/100+1)), int(image_total.size[1] * (border_percent/100+1) )), (56,62,66) )
         image_total_2.paste(image_total, ( int((border_percent/100)*image_total.size[0]/2) ,int((border_percent/100)*image_total.size[1]/2)))
         image_total_2.save(title_new + "_total.jpg")
         #text_image.show()
