@@ -1,3 +1,5 @@
 ﻿beautifulsoup4==4.6.0
 mwapi==0.5.1
 requests>=2.20.0
+qrcode>=6.1
+Pillow>=6.0.0
