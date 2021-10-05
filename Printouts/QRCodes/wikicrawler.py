@@ -148,17 +148,14 @@ def crawlProjectNameSpace():
         crawlPageForPic(page['title'])
 def crawlPageForPic(title, infoboxname='ProjectInfoBox'):
     global session
-    print(title)
     rawurl = "https://wiki.comakingspace.de/index.php?title=" + title + '&action=raw'
     responseraw = requests.get(rawurl)
     infoboxes = extractinfoboxes(responseraw.text, infoboxname)
     for infobox in infoboxes:
-        border_percent = 4
         #get the image and the corresponding link
         file_start = infobox.find("image=")+6
         file_end = infobox.find("\n", file_start)
         file_name = "File:" + infobox[file_start:file_end]
-        title_new = title[title.find(':')+1:]
         if infobox[file_start:file_end].find('.') == -1:
             break
         #get url
@@ -166,49 +163,73 @@ def crawlPageForPic(title, infoboxname='ProjectInfoBox'):
         image_specifics = query_result['query']['pages'][list(query_result['query']['pages'])[0]]
         if 'missing' in image_specifics:
             break
-        file_link = image_specifics['imageinfo'][0]['url']
-        file = requests.get(file_link).content
-        #with open(title_new + '.jpg', 'wb') as f:
-        #    f.write(file)
-        image = Image.open(io.BytesIO(file))
-        #image.save(title_new + '.jpg')
-        #horizental size: image.size[0]
-        size = image.size[1]//10
-        text_font = ImageFont.truetype('Roboto-Regular.ttf', size=size)
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=5,
-            border=2,
-        )
-        
-        qr.add_data("https://wiki.comakingspace.de/" + title.replace(" ","_"))
-        qr.make(fit=True)
-        qr_image = qr.make_image(fill_color="white", back_color="#383e42")
-        qr_image = qr_image.get_image()
-        qr_image = qr_image.resize((size*2,size*2))
-        #qr_image.save(title_new + "_qr.jpg")
-        
-        text_image = Image.new('RGB', text_font.getsize(title_new) , '#383e42')
-        draw = ImageDraw.Draw(text_image)
-        #text_image.paste(qr_image, (text_font.getsize(title_new)[0],0))
-        #text_font.size = 100
-        draw.text((0,0),title_new, fill='white', font=text_font)
-        if text_image.size[0] > image.size[0]:
-            target_size_x = image.size[0]-qr_image.size[0]
-            factor = target_size_x / text_image.size[0]
-            text_image = text_image.resize( (int(text_image.size[0]*factor), int (text_image.size[1]*factor) ) )
-        
-        #text_image.save(title_new+'_text.jpg')
-        image_total = Image.new('RGB', (max(image.size[0],text_image.size[0]+qr_image.size[0]), image.size[1]+text_image.size[1]), (56,62,66) )
-        image_total.paste(image, (int(image_total.size[0] /2 - image.size[0]/2) ,0))
-        image_total.paste(text_image, (int(text_image.size[0] /2 - text_image.size[0]/2) ,image.size[1]))
-        image_total.paste(qr_image, (image_total.size[0] - qr_image.size[0] ,image_total.size[1] - qr_image.size[1]))
-        image_total_2 = Image.new('RGB', ( int(image_total.size[0] * (border_percent/100+1)), int(image_total.size[1] * (border_percent/100+1) )), (56,62,66) )
-        image_total_2.paste(image_total, ( int((border_percent/100)*image_total.size[0]/2) ,int((border_percent/100)*image_total.size[1]/2)))
-        image_total_2.save(title_new + "_total.jpg")
-        #text_image.show()
-        print(image.format, "%dx%d" % image.size, image.mode)
+        image_link = image_specifics['imageinfo'][0]['url']
+        project_title = title[title.find(':')+1:]
+        url = "https://wiki.comakingspace.de/" + title.replace(" ","_")
+        buildPrintout (url, project_title, image_link)
+
+def getProjectsWithPictures ():
+    global session
+    print("-----------------------------------------------------")
+    print("Downloading Project Information")    
+    
+    query_result = session.get(action='ask', query='[[Project:+]]|[[Has image::!File:Project-default.png]]|?has caption|?has image|limit=500')
+    project_pages = query_result['query']['results']
+    for page in project_pages:
+        project_title = page.replace('Project:','')
+        image_link = project_pages[page]['printouts']['Has image'][0]['fullurl'].replace('File:', 'Special:Redirect/file/')
+        url = project_pages[page]['fullurl']
+        buildPrintout(url, project_title, image_link)
+
+def buildPrintout(url, project_title, image_link):
+    #some general parameters
+    border_percent = 4
+    
+    print(f'Building the Image for {project_title}')
+
+    #Download the Image 
+    headers = {"User-Agent": "CoMakingSpace Wikicrawler (https://www.comakingspace.org; info@comaking.space)"}
+    file = requests.get(image_link, headers = headers).content
+
+    image = Image.open(io.BytesIO(file))
+    size = image.size[1]//10
+    text_font = ImageFont.truetype('Roboto-Regular.ttf', size=size)
+
+    # create the QR Code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=5,
+        border=2,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="white", back_color="#383e42")
+    qr_image = qr_image.get_image()
+    qr_image = qr_image.resize((size*2,size*2))
+ 
+    #Add the Project Name to the image
+    text_image = Image.new('RGB', text_font.getsize(project_title) , '#383e42')
+    draw = ImageDraw.Draw(text_image)
+    draw.text((0,0),project_title, fill='white', font=text_font)
+    if text_image.size[0] > image.size[0]:
+        target_size_x = image.size[0]-qr_image.size[0]
+        factor = target_size_x / text_image.size[0]
+        text_image = text_image.resize( (int(text_image.size[0]*factor), int (text_image.size[1]*factor) ) )
+    
+    #Join the downloaded image, the text and the QR Code
+    image_total = Image.new('RGB', (max(image.size[0],text_image.size[0]+qr_image.size[0]), image.size[1]+text_image.size[1]), (56,62,66) )
+    image_total.paste(image, (int(image_total.size[0] /2 - image.size[0]/2) ,0))
+    image_total.paste(text_image, (int(text_image.size[0] /2 - text_image.size[0]/2) ,image.size[1]))
+    image_total.paste(qr_image, (image_total.size[0] - qr_image.size[0] ,image_total.size[1] - qr_image.size[1]))
+
+    # Add some border
+    image_total_2 = Image.new('RGB', ( int(image_total.size[0] * (border_percent/100+1)), int(image_total.size[1] * (border_percent/100+1) )), (56,62,66) )
+    image_total_2.paste(image_total, ( int((border_percent/100)*image_total.size[0]/2) ,int((border_percent/100)*image_total.size[1]/2)))
+    
+    #save the whole thing
+    image_total_2.save(project_title + "_total.jpg")
+    print(f'Image for {project_title} saved')
 
 if __name__ == "__main__":
     if (args.MachineBox or args.All):
@@ -225,7 +246,8 @@ if __name__ == "__main__":
         else:
             print('Please indicate the Info Box Name when crawling a specific page.')
     if (args.Projects):
-        crawlProjectNameSpace()
+        #crawlProjectNameSpace()
+        getProjectsWithPictures()
     # crawlpage('Eccentric_Sanders','ToolInfoBox','Test')
     # crawlCategory("Audio", "ProjectInfoBox")
     # crawlCategory("Hardware", "ToolInfoBox")
