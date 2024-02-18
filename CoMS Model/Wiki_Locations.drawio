@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-07-13T13:44:39.494Z" agent="5.0 (Android 8.0.0)" etag="ii6XPKw-m1PxnRcIjhmC" version="20.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-18T21:37:01.728Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="AscgEbPliSLrrb4scS7t" version="20.2.7" type="github">
   <diagram id="Z9USFGTLJIX7_FAzGUqJ" name="Page-1">
-    <mxGraphModel dx="2920" dy="3962" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3514" dy="2776" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -25,8 +25,8 @@
         <mxCell id="dVGMr21RCzNyEH1sTANa-25" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;fontSize=20;strokeColor=none;" parent="1" vertex="1">
           <mxGeometry x="-769.004236453202" y="-1021.8541489744512" width="429.064039408867" height="1261.424973011875" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-2" value="Welding Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="73.25123152709364" y="-1016.9341489744512" width="121.67487684729063" height="92.29938826916157" as="geometry" />
+        <mxCell id="dVGMr21RCzNyEH1sTANa-2" value="Hot Metal Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="-25" y="-1016.93" width="310" height="92.3" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-3" value="CoMS Storage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="881.4285714285713" y="146.0381432169845" width="128.07881773399015" height="367.9668945663908" as="geometry" />
@@ -37,14 +37,11 @@
         <mxCell id="dVGMr21RCzNyEH1sTANa-5" value="Wood Storage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="196.20689655172418" y="-143.16660669305497" width="275.3694581280788" height="55.379632961496945" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-6" value="Handheld Wood Tool Wall" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="-232.8571428571429" y="-106.2468513853903" width="320.1970443349754" height="18.459877653832315" as="geometry" />
+        <mxCell id="dVGMr21RCzNyEH1sTANa-6" value="Handheld Wood Tool Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="-232.86" y="-429" width="320.2" height="341.21" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-7" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Measuring shelf&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-322.51231527093597" y="-130.86002159050008" width="83.2512315270936" height="43.07304785894207" as="geometry" />
-        </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-8" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Roubo Workbench (?)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="-66.35467980295562" y="-383.1450161928751" width="130.64039408866995" height="61.53292551277438" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-9" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;CNC Area&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-749.0002955665025" y="109.15180280676518" width="358.6206896551724" height="153.83231378193597" as="geometry" />
@@ -61,13 +58,13 @@
         <mxCell id="dVGMr21RCzNyEH1sTANa-13" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Laser Area&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-559.4581280788177" y="453.70277078085655" width="403.44827586206895" height="49.22634041021951" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-14" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Electronics Workbenches&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+        <mxCell id="dVGMr21RCzNyEH1sTANa-14" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Electronics Area&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-693.9408866995074" y="262.950701691256" width="294.5812807881773" height="49.22634041021951" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-15" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Electronics Shelf&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-757.9802955665025" y="262.950701691256" width="44.82758620689655" height="239.9784094998201" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-16" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;?????&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+        <mxCell id="dVGMr21RCzNyEH1sTANa-16" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Airbrush Area&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-149.60591133004925" y="453.70277078085655" width="236.94581280788177" height="49.22634041021951" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-17" value="Office Supply Shelf" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
@@ -79,10 +76,10 @@
         <mxCell id="dVGMr21RCzNyEH1sTANa-19" value="Lockers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="543.9408866995075" y="-70.55775458798121" width="48.029556650246306" height="243.0550557754588" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-20" value="Sewing Corner" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+        <mxCell id="dVGMr21RCzNyEH1sTANa-20" value="Sewing Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="598.3743842364531" y="-70.55775458798121" width="105.66502463054186" height="33.84310903202591" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-21" value="Gaming &amp;amp; Chillout Zone" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+        <mxCell id="dVGMr21RCzNyEH1sTANa-21" value="Chillout Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="697.6354679802955" y="-70.55775458798121" width="166.5024630541872" height="224.5951781216265" as="geometry" />
         </mxCell>
         <mxCell id="dVGMr21RCzNyEH1sTANa-22" value="Kitchen" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
@@ -115,10 +112,10 @@
         <mxCell id="dVGMr21RCzNyEH1sTANa-39" value="Clamp Cart" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-380.14778325123154" y="-327.7653832313781" width="153.69458128078819" height="97.22202231018352" as="geometry" />
         </mxCell>
-        <mxCell id="dVGMr21RCzNyEH1sTANa-40" value="Metal Workbenches" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="-284.0886699507389" y="-1016.9341489744512" width="345.8128078817734" height="55.379632961496945" as="geometry" />
+        <mxCell id="dVGMr21RCzNyEH1sTANa-40" value="Handheld Metal Tool Area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="-284.09" y="-1016.93" width="252.09" height="55.38" as="geometry" />
         </mxCell>
-        <mxCell id="oTyNJwHOFDVlNZPdW_3h-4" value="Grinding Table " style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="oTyNJwHOFDVlNZPdW_3h-4" value="Grinding Table " style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;strokeColor=#3700CC;fontColor=#ffffff;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="-300.99876847290636" y="-877.0041489744513" width="121.67487684729063" height="92.29938826916157" as="geometry" />
         </mxCell>
       </root>
