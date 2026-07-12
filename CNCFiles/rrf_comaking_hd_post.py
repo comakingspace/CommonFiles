@@ -349,8 +349,12 @@ def export(objectslist, filename, argstring):
     if OUTPUT_COMMENTS:
         gcode += linenumber() + "(Default Configuration)\n"
     gcode += linenumber() + MOTION_MODE + "\n"
-    gcode += linenumber() + UNITS + "\n"
-    gcode += linenumber() + WORK_PLANE + "\n"
+    gcode += linenumber() + "G94\n"                 #added for Workbee Makerspace enters the mode as units per minutes, the units are set in the next line
+    gcode += linenumber() + UNITS + "\n"            #is G21 sets units to millimeters
+    gcode += linenumber() + WORK_PLANE + "\n"       #is G17 xy plane
+    gcode += linenumber() + "G28 G91 Z0\n"          #added for Workbee Makerspace G28 move to home, G91 relative position
+    gcode += linenumber() + "G90\n"                 #added for Workbee Makerspace, is setting to absolute position
+
 
     for obj in objectslist:
         # Debug...
@@ -557,10 +561,12 @@ def parse(pathobj):
 
 #                    elif param in ["H", "D", "S", "P", "L"]:
 #                        outlist.append(param + str(c.Parameters[param]))
+#insert start for Workbee Makerspace
                     elif param == "S":
                         outlist.append(param + str(c.Parameters[param]) + " P0")
                     elif param in ["H", "D", "P", "L"]:
                         outlist.append(param + str(c.Parameters[param]))
+#insert end for Workbee Makerspace
                     elif param in ["A", "B", "C"]:
                         outlist.append(param + format(c.Parameters[param], precision_string))
                     # [X, Y, Z, U, V, W, I, J, K, R, Q]
